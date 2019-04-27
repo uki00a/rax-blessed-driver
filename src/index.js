@@ -1,119 +1,94 @@
-import assert from 'assert';
 import blessed from 'neo-blessed';
-import {Component, render, createElement} from 'rax';
 import {
-  replaceChild,
-  removeChild,
-  setAttribute,
-  propsToNodeOptions
-} from './shared/utils';
-
-class BlessedDriver {
-  constructor(blessed, screenOptions = {}) {
-    assert(blessed);
-    assert(typeof screenOptions === 'object');
-
-    this._blessed = blessed;
-    this._screenOptions = screenOptions;
-  }
-
-  createBody() {
-    assert(arguments.length === 0);
-
-    return this._blessed.screen(this._screenOptions);
-  }
-
-  createEmpty(component) {
-    throw new Error('Not implemented');
-  }
-
-  createText(text, component) {
-    return this._blessed.text({ content: text });
-  }
-
-  updateText(node, text) {
-    node.setContent(text);
-  }
-
-  createElement(type, props, component) {
-    assert(this._blessed[type]);
-    assert(props.children);
-
-    const options = propsToNodeOptions(props);
-    const element = this._blessed[type](options);
-    return element;
-  }
-
-  appendChild(node, parent) {
-    parent.append(node);
-  }
-
-  removeChild(node, parent) {
-    removeChild(node, parent);
-  }
-
-  replaceChild(newChild, oldChild, parent) {
-    replaceChild(newChild, oldChild, parent);
-  }
-
-  insertAfter(node, after, parent) {
-    assert(parent != null);
-
-    parent.insertAfter(node, after);
-
-    assert(parent.children.findIndex(node) > -1);
-    assert(parent.children.findIndex(node) > parent.children.findIndex(after));
-  }
-
-  insertBefore(node, before, parent) {
-    assert(parent != null);
-
-    parent.insertBefore(node, before);
-
-    assert(parent.children.findIndex(node) > -1);
-    assert(parent.children.findIndex(node) < parent.children.findIndex(before));
-  }
-
-  addEventListener(node, eventName, eventHandler) {
-    return node.on(eventName, eventHandler);
-  }
-
-  removeEventListener(node, eventName, eventHandler) {
-    return node.removeListener(eventName, eventHandler);
-  }
-
-  setAttribute(node, propKey, propValue) {
-    setAttribute(node, propKey, propValue);
-  }
-
-  removeAttribute(node, propKey) {
-    throw new Error('Not implemented');
-  }
-
-  setStyle(node, styleObject) {
-    throw new Error('Not implemented');
-  }
-
-  beforeRender({element, hybrate, container}) {
-  }
-
-  afterRender({element, hybrate, container}) {
-    assert(container instanceof blessed.Screen);
-    container.render();
-  }
-}
+  Component,
+  render,
+  createRef,
+  useReducer,
+  createElement // eslint-disable-line no-unused-vars
+} from 'rax';
+import BlessedDriver from './driver';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this._list = createRef();
+  }
+
+  componentDidMount() {
+    this._list.current.focus();
+  }
+
   render() {
-    return <box>Hello</box>
+    return (
+      <box>
+        <box position={{ height: '50%' }}>
+          <text position={{ top: 0, height: 2}}>Hello</text>
+          <list
+            clickable
+            focusable
+            mouse
+            keys
+            keyable
+            vi
+            ref={this._list}
+            position={{ top: 2 }}
+            border='line'
+            items={['a', 'b', 'c']} />
+        </box>
+        <box position={{ top: '50%' }}>
+          <CounterContainer />
+        </box>
+      </box>
+    )
   }
 }
+
+const INCREMENT_COUNT = 'INCREMENT_COUNT';
+const DECREMENT_COUNT = 'DECREMENT_COUNT';
+
+function counterReducer(state, action) {
+  switch (action.type) {
+  case INCREMENT_COUNT:
+    return state + 1;
+  case DECREMENT_COUNT:
+    return Math.max(state - 1, 0);
+  default:
+    return state;
+  }
+}
+
+function CounterContainer() {
+  const [state, dispatch] = useReducer(counterReducer, 0);
+  const increment = () => dispatch({type: INCREMENT_COUNT});
+  const decrement = () => dispatch({type: DECREMENT_COUNT});
+
+  return (
+    <Counter 
+      count={state}
+      increment={increment}
+      decrement={decrement}
+    />
+  );
+}
+
+const Counter = ({ count, increment, decrement }) => (
+  <box>
+    <text height={2}>{count}</text>
+    <button mouse clickable top={2} onClick={increment}>+</button>
+    <button mouse clickable top={4} onClick={decrement}>-</button>
+    {
+      Array(count).fill(0).map((x, index) => <text top={5 + index}>!</text>)  
+    }
+  </box>
+);
 
 const driver = new BlessedDriver(blessed)
 const screen = blessed.screen({
   autopadding: true,
   smartCSR: true,
-  title: 'redis-term',
-  fullUnicode: true
+  title: 'sample',
+  fullUnicode: true,
+  debug: true
 });
+screen.key(['C-c'], () => process.exit(0));
 render(<App />, screen, { driver });
