@@ -1,5 +1,5 @@
-module.exports = function(api) {
-  api.cache.invalidate(() => process.env.NODE_ENV);
+module.exports = function(api) { // eslint-disable-line no-undef
+  api.cache.invalidate(() => process.env.NODE_ENV); // eslint-disable-line no-undef
 
   const plugins = ['@babel/plugin-transform-modules-commonjs'];
   const presets = [
@@ -9,7 +9,7 @@ module.exports = function(api) {
   if (api.env('production')) {
     plugins.push('babel-plugin-unassert');
   } else {
-    plugins.push('babel-plugin-espower');
+    presets.push('power-assert');
   }
 
   return { plugins, presets };
