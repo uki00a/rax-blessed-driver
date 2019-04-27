@@ -18,6 +18,8 @@
     "@babel/register": "^7.4.4",
     "babel-plugin-espower": "^3.0.1",
     "babel-plugin-unassert": "^3.0.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-react": "^7.12.4",
     "mocha": "^6.1.4",
     "neo-blessed": "^0.2.0",
     "power-assert": "^1.6.1",
