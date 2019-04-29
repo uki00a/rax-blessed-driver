@@ -25,7 +25,7 @@ function makeScreen() {
   return screen;
 }
 
-describe('rendering', () => {
+describe('basic rendering', () => {
   let screen;
   let renderCount = 0;
 
