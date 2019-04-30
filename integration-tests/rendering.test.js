@@ -27,11 +27,9 @@ function makeScreen() {
 
 describe('basic rendering', () => {
   let screen;
-  let renderCount = 0;
 
   before(done => {
     screen = makeScreen();
-    screen.on('render', () => renderCount++);
     screen.on('render', done);
 
     const App = () => (
@@ -47,7 +45,6 @@ describe('basic rendering', () => {
   });
 
   it('can render pure component', () => {
-    assert(renderCount === 1);
     assert(screen.children.length === 1);
     assert(screen.children[0].children.length === 1);
     assert(screen.children[0].children[0].content === 'hello');
