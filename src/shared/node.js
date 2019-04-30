@@ -88,11 +88,7 @@ export function setAttribute(node, propKey, propValue) {
 function setBorder(node, propValue) {
   // dirty hack for avoiding an issue at https://github.com/chjj/blessed/pull/248
   const klass = Object.getPrototypeOf(node).constructor;
-  const dummyNode = new klass(merge(
-    {},
-    node.options,
-    {border: propValue}
-  ));
+  const dummyNode = new klass({ border: propValue });
   node.border = dummyNode.border;
   node.style.border = dummyNode.style.border;
 }
