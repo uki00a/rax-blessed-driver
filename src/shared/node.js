@@ -12,7 +12,7 @@ export function removeChild(node, parent) {
 }
 
 export function replaceChild(newChild, oldChild, parent) {
-  parent = parent || oldChild.parentNode;
+  parent = parent || oldChild.parent;
 
   assert(parent);
   assert(parent.children.includes(oldChild));
