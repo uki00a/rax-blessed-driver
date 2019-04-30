@@ -86,18 +86,15 @@ export function setAttribute(node, propKey, propValue) {
 }
 
 function setBorder(node, propValue) {
-  if (typeof propValue === 'string') {
-    assert(propValue === 'bg' || propValue === 'line');
-    node.border = merge({}, node.border, { type: propValue });
-  } else {
-    node.border = merge({}, node.border, propValue);
-  }
-
-  // Workaround for following error:
-  //   TypeError: Cannot read property 'bold' of undefined
-  //     at Text.Element.sattr (/node_modules/neo-blessed/lib/widgets/element.js:233:20)
-  //     at Text.Element.render (/node_modules/neo-blessed/lib/widgets/element.js:2136:18)
-  node.style.border = merge({}, node.style.border, node.border);
+  // dirty hack for avoiding an issue at https://github.com/chjj/blessed/pull/248
+  const klass = Object.getPrototypeOf(node).constructor;
+  const dummyNode = new klass(merge(
+    {},
+    node.options,
+    {border: propValue}
+  ));
+  node.border = dummyNode.border;
+  node.style.border = dummyNode.style.border;
 }
 
 const RAW_ATTRIBUTES = new Set([
