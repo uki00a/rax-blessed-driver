@@ -63,8 +63,7 @@ export function setAttribute(node, propKey, propValue) {
     node.setItems(propValue);
 
   // Border edge case
-  else if (propKey === 'border')
-    node.border = merge({}, node.border, propValue);
+  else if (propKey === 'border') setBorder(node, propValue);
 
   // Textarea value
   else if (propKey === 'propValue' && node.setValue)
@@ -84,6 +83,16 @@ export function setAttribute(node, propKey, propValue) {
   else if (RAW_ATTRIBUTES.has(propKey))
     node[propKey] = propValue;
 
+}
+
+function setBorder(node, propValue) {
+  if (typeof propValue === 'string') {
+    assert(propValue === 'bg' || propValue === 'line');
+    node.border = merge({}, node.border, { type: propValue });
+  } else {
+    node.border = merge({}, node.border, propValue);
+  }
+  node.style.border = node.border;
 }
 
 const RAW_ATTRIBUTES = new Set([
