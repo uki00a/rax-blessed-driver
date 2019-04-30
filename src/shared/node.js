@@ -92,7 +92,7 @@ function setBorder(node, propValue) {
   } else {
     node.border = merge({}, node.border, propValue);
   }
-  node.style.border = node.border;
+  node.style.border = merge({}, node.style.border, node.border);
 }
 
 const RAW_ATTRIBUTES = new Set([
