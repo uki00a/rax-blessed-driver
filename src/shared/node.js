@@ -1,4 +1,5 @@
 import assert from 'assert';
+import merge from 'lodash.merge';
 
 export function removeChild(node, parent) {
   assert(parent || node.parent);

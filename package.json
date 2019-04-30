@@ -28,6 +28,7 @@
     "stream-buffers": "^3.0.2"
   },
   "dependencies": {
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "lodash.merge": "^4.6.1"
   }
 }
