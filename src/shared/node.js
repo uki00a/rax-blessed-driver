@@ -92,6 +92,11 @@ function setBorder(node, propValue) {
   } else {
     node.border = merge({}, node.border, propValue);
   }
+
+  // Workaround for following error:
+  //   TypeError: Cannot read property 'bold' of undefined
+  //     at Text.Element.sattr (/node_modules/neo-blessed/lib/widgets/element.js:233:20)
+  //     at Text.Element.render (/node_modules/neo-blessed/lib/widgets/element.js:2136:18)
   node.style.border = merge({}, node.style.border, node.border);
 }
 
