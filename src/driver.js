@@ -4,6 +4,7 @@ import {
   replaceChild,
   removeChild,
   setAttribute,
+  removeAttribute,
   propsToNodeOptions
 } from './shared/node';
 
@@ -107,7 +108,8 @@ export default class BlessedDriver {
   }
 
   removeAttribute(node, propKey) {
-    throw new Error('Not implemented');
+    removeAttribute(node, propKey);
+    this._debouncedRender();
   }
 
   setStyle(node, styleObject) {

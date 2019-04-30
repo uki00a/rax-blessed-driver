@@ -24,6 +24,16 @@ export function replaceChild(newChild, oldChild, parent) {
   assert(parent.children.includes(newChild));
 }
 
+export function removeAttribute(node, propKey) {
+  if (node[propKey]) {
+    delete node[propKey];
+  }
+
+  if (node.style[propKey]) {
+    delete node.style[propKey];
+  }
+}
+
 // Borrowed from react-blessed
 export function setAttribute(node, propKey, propValue) {
   if (propKey === 'selected' && node.select)
