@@ -1,8 +1,8 @@
 # rax-blessed-driver (WIP)
 
-A [Rax](https://github.com/alibaba/rax) driver for the [blessed](https://github.com/chjj/blessed).
+> Note: This package is in early stage.
 
-Note: This package is in early stage.
+A [Rax](https://github.com/alibaba/rax) driver for the [blessed](https://github.com/chjj/blessed).
 
 ## Usage
 
@@ -30,5 +30,7 @@ render(<App />, screen, { driver });
 * Effect (hover, focus) do not work once mounted.
 
 ## TODO
-
 - [ ] `blessed-contrib` support
+
+## Inspired By
+* [react-blessed](https://github.com/Yomguithereal/react-blessed)
