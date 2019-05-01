@@ -14,7 +14,7 @@ import { createDriver } from 'rax-blessed-driver';
 const App = () => (
   <box>Hello</box>
 );
-const driver = new BlessedDriver()
+const driver = createDriver()
 const screen = blessed.screen({
   autopadding: true,
   smartCSR: true,
