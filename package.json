@@ -19,6 +19,7 @@
     "@babel/register": "^7.4.4",
     "babel-plugin-unassert": "^3.0.0",
     "babel-preset-power-assert": "^3.0.0",
+    "blessed": "^0.1.81",
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.12.4",
     "mocha": "^6.1.4",
