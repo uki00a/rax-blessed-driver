@@ -4,6 +4,7 @@ import {
   replaceChild,
   removeChild,
   setAttribute,
+  setStyle,
   removeAttribute,
   propsToNodeOptions
 } from './shared/node';
@@ -113,7 +114,8 @@ export default class BlessedDriver {
   }
 
   setStyle(node, styleObject) {
-    throw new Error('Not implemented');
+    setStyle(node, styleObject);
+    this._debouncedRender();
   }
 
   beforeRender({/*element, hybrate, */container}) {

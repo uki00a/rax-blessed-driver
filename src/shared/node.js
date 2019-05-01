@@ -93,6 +93,25 @@ function setBorder(node, propValue) {
   node.style.border = dummyNode.style.border;
 }
 
+export function setStyle(node, style) {
+  assert(style != null && typeof style === 'object');
+  const normalizedStyle = normalizeStyle(style);
+  node.style = merge({}, node.style, normalizedStyle);
+}
+
+function normalizeStyle(style) {
+  const normalizedStyle = {};
+  for (const key in style) {
+    const value = style[key];
+    if (value == null || value === '') {
+      delete style[key];
+    } else {
+      normalizedStyle[key] = value;
+    }
+  }
+  return normalizedStyle;
+}
+
 const RAW_ATTRIBUTES = new Set([
   // Alignment, Orientation & Presentation
   'align',
