@@ -4,6 +4,12 @@
 
 A [Rax](https://github.com/alibaba/rax) driver for the [blessed](https://github.com/chjj/blessed).
 
+## Installation
+
+```bash
+$ npm install rax blessed rax-blessed-driver
+```
+
 ## Usage
 
 ```javascript
