@@ -31,6 +31,7 @@ export function removeAttribute(node, propKey) {
   }
 
   if (node.style[propKey]) {
+    // border etc.
     delete node.style[propKey];
   }
 }
