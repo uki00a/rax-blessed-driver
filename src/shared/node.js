@@ -36,7 +36,7 @@ export function removeAttribute(node, propKey) {
   }
 }
 
-// Borrowed from react-blessed
+// Borrowed from react-blessed (https://github.com/Yomguithereal/react-blessed)
 export function setAttribute(node, propKey, propValue) {
   assert(propKey !== 'style', 'style should be updated by setStyle()');
 
