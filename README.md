@@ -1,6 +1,6 @@
 # rax-blessed-driver (WIP)
 
-> blessed driver for Rax.
+A [Rax](https://github.com/alibaba/rax) driver for the [blessed](https://github.com/chjj/blessed).
 
 Note: This package is in early stage.
 
