@@ -37,6 +37,8 @@ export function removeAttribute(node, propKey) {
 
 // Borrowed from react-blessed
 export function setAttribute(node, propKey, propValue) {
+  assert(propKey !== 'style', 'style should be updated by setStyle()');
+
   if (propKey === 'selected' && node.select)
     node.select(typeof propValue === 'string' ? +propValue : propValue);
   
@@ -53,10 +55,6 @@ export function setAttribute(node, propKey, propValue) {
   // Setting content
   else if (propKey === 'content')
     node.setContent(propValue);
-
-  // Updating style
-  else if (propKey === 'style')
-    node.style = merge({}, node.style, propValue);
 
   // Updating items
   else if (propKey === 'items')
