@@ -26,6 +26,16 @@ const screen = blessed.screen({
 render(<App />, screen, { driver });
 ```
 
+### neo-blessed
+
+```javascript
+import blessed from 'neo-blessed';
+import { render, createElement } from 'rax';
+import createDriver from '../src';
+
+const driver = createDriver(blessed);
+```
+
 ## Known issues
 * Effect (hover, focus) do not work once mounted.
 
