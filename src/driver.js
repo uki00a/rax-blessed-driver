@@ -8,6 +8,7 @@ import {
   removeAttribute,
   propsToNodeOptions
 } from './shared/node';
+import { RENDERING_RATE } from './shared/constants';
 
 const EVENT_PREFIX_REGEXP = /^on[A-Z]/;
 
@@ -129,7 +130,7 @@ export default class BlessedDriver {
       container.render();
     };
 
-    this._debouncedRender = debounce(render, 16);
+    this._debouncedRender = debounce(render, RENDERING_RATE);
   }
 
   afterRender({/*element, hybrate, */container}) {

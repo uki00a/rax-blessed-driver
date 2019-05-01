@@ -8,7 +8,8 @@ import {
 } from 'rax';
 import blessed from 'neo-blessed';
 import streamBuffers from 'stream-buffers';
-import BlessedDriver from '../src/driver';
+import BlessedDriver from '../src';
+import { RENDERING_RATE } from '../src/shared/constants';
 
 function makeScreen() {
   const screen = blessed.screen({
@@ -51,3 +52,50 @@ describe('basic rendering', () => {
   });
 });
 
+describe('batch rendering', () => {
+  let screen;
+  let renderCount = 0;
+
+  before(done => {
+    function App () {
+      const [isVisible, setIsVisible] = useState(true);
+
+      useEffect(() => {
+        if (isVisible) {
+          setTimeout(() => setIsVisible(false), RENDERING_RATE);
+        } else {
+          setTimeout(done, RENDERING_RATE);
+        }
+      }, [isVisible]);
+
+      return (
+        <box>
+          <text content={isVisible ? 'visible' : 'invisible'}></text>
+          {
+            isVisible
+              ? <text>hello</text>
+              : null
+          }
+        </box>
+      );
+    }
+
+    screen = makeScreen();
+
+    screen.on('render', () => renderCount++);
+
+    render(
+      <App />,
+      screen,
+      { driver: new BlessedDriver(blessed) }
+    );
+  });
+
+  after(() => {
+    screen.destroy();
+  });
+
+  it('rendering should be batched', () => {
+    assert(renderCount === 2); // mount + update
+  });
+});
