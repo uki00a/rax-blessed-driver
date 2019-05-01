@@ -8,7 +8,7 @@ import {
 } from 'rax';
 import blessed from 'neo-blessed';
 import streamBuffers from 'stream-buffers';
-import BlessedDriver from '../src';
+import createDriver from '../src';
 import { RENDERING_RATE } from '../src/shared/constants';
 
 function makeScreen() {
@@ -36,7 +36,7 @@ describe('basic rendering', () => {
     const App = () => (
       <text>hello</text>
     );
-    const driver = new BlessedDriver(blessed);
+    const driver = createDriver(blessed);
 
     render(<App />, screen, { driver });
   });
@@ -87,7 +87,7 @@ describe('batch rendering', () => {
     render(
       <App />,
       screen,
-      { driver: new BlessedDriver(blessed) }
+      { driver: createDriver(blessed) }
     );
   });
 
