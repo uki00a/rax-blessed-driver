@@ -36,6 +36,14 @@ import createDriver from '../src';
 const driver = createDriver(blessed);
 ```
 
+## Examples
+
+Examples can be found in [examples/](./examples).
+
+```bash
+$ node run_example.js hooks
+```
+
 ## Known issues
 * Effect (hover, focus) do not work once mounted.
 
