@@ -26,6 +26,10 @@
     "integration-test": "mocha -r @babel/register ./integration-tests/**/*.test.js",
     "prepublish": "yarn run integration-test && yarn run rebuild"
   },
+  "peerDependencies": {
+    "blessed": "^0.1.81",
+    "rax": "^1.0.4"
+  },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
