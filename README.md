@@ -1,4 +1,4 @@
-# rax-blessed-driver (WIP)
+# rax-blessed-driver
 
 > Note: This package is in early stage.
 
@@ -9,7 +9,7 @@ A [Rax](https://github.com/alibaba/rax) driver for the [blessed](https://github.
 ```javascript
 import blessed from 'blessed';
 import { render, createElement } from 'rax';
-import { createDriver } from 'rax-blessed-driver';
+import createDriver from 'rax-blessed-driver';
 
 const App = () => (
   <box>Hello</box>
