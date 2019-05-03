@@ -51,7 +51,7 @@ $ node run_example.js hooks
 ```
 
 ## Known issues
-* Effect (hover, focus) do not work once mounted.
+* Effects (hover, focus) do not work once mounted.
 
 ## TODO
 - [ ] `blessed-contrib` support
